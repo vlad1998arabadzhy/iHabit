@@ -28,7 +28,13 @@ class HabitManager: ObservableObject{
         habits.remove(atOffsets: offsets)
         saveHabit()
     }
-    func loadHabits(){}
+    func loadHabits(){
+        if let data = UserDefaults.standard.data(forKey: "habits"),
+            let decoded = try? JSONDecoder().decode([Habit].self, from: data){
+                habits = decoded
+            }
+        
+    }
     
 }
 
